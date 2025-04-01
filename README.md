@@ -1,6 +1,6 @@
 # Wisconsin Lakes Park Selection Analysis
 
-A reproducible data science project demonstrating how to create publication-ready documents from Jupyter notebooks using Quarto.
+Reproducible data science demonstrating how to create publication-ready documents from Jupyter notebooks using Quarto.
 
 ## Project Overview
 
