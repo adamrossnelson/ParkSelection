@@ -1,0 +1,9 @@
+.small-table td, .small-table th {
+    font-size: 12px !important;
+}
+
+.med-table td, .med-table th {
+    font-size: 16px !important;
+}
+
+
