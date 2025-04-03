@@ -93,7 +93,7 @@ from sklearn.neighbors import KNeighborsClassifier
 sns.set_context('paper')
 
 # Preliminary data inspections
-df0 = pd.read_csv('Lakes_Original.csv')
+df0 = pd.read_csv('original_data/Lakes_Original.csv')
 with open('_variables.yml', 'a') as f:
     # Write number of observations for later reference
     f.write(f'number_of_lakes: {df0.shape[0]}\n')
@@ -208,7 +208,7 @@ In order to solve the complex problem of deciding which lakes need more services
 ::: {#cell-fig-data-sicence-process .cell fig-num='true' execution_count=4}
 ``` {.python .cell-code}
 # Load image
-img = mpimg.imread('process.png') 
+img = mpimg.imread('figures/process.png') 
 
 # Set the figure size (width, height in inches)
 plt.figure(figsize=(10, 10 * .5625))
@@ -435,7 +435,7 @@ Below @fig-wisconsin-lakes-mapped shows the geographic distribution of lakes acr
 def fetch_wisconsin_geojson(local_path="wisconsin.geojson", verbose=False):
     if not os.path.exists(local_path):
         if verbose: print(f"{local_path} not found. Downloading...")
-        web = 'https://raw.githubusercontent.com'
+        web = 'https://raw.githubusercontent.com/'
         path = 'glynnbird/usstatesgeojson/master/'
         file = 'wisconsin.geojson'
         response = requests.get(web + path + file)
@@ -531,7 +531,7 @@ This code also manages missing data as described above in @sec-wdnr-data which d
 ::: {#c438935e-65b3-4b0a-8fd4-cf9b83950d63 .cell execution_count=11}
 ``` {.python .cell-code code-fold="false"}
 # Start with a fresh copy of the data from WDNR
-df = pd.read_csv('Lakes_Original.csv')
+df = pd.read_csv('original_data/Lakes_Original.csv')
 
 original_rows, original_cols = df.shape
 
@@ -593,7 +593,7 @@ df['hasservice'] = df[['haslanding','hasbeach','haspark']].max(axis=1)
 # Convert positive longitudinal values to negative
 df['lon'] = [l if l < 0 else l * -1 for l in df['lon']]
 # Replace 0, 0 coordinates with county coordiantes from gigasheet.com
-county_list = pd.read_csv('gigsheet-counties.csv')
+county_list = pd.read_csv('original_data/gigsheet-counties.csv')
 # Create a county to lon mapper
 lon_map = dict(zip(county_list['name'], county_list['lng']))
 # Create a county to lon mapper
