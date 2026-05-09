@@ -7,7 +7,7 @@ author:
     affiliation: "University of Wisconsin - Madison"
 date: January 1, 2025 
 abstract: > 
-  This paper demonstrates a practical application of data science methods through a case study of Wisconsin lakes. This paper partially exibits an applied answer to a fundamental question in the field: how do data scientists provide value to organizations? Using a dataset of 16,711 lakes from the Wisconsin Department of Natural Resources, the paper presents a reproducible workflow that supports policy makers in their oversight of public accommodations. This analysis closely follows reproducible research practices, making code, data, and methods openly available. This work not only provides practical insights for lake management but also serves as an educational template for understanding the data science process, from initial data exploration to final recommendations. The paper demonstrates how data scientists can bridge the gap between raw data and policy decisions, while maintaining transparency and reproducibility throughout the analytical process.
+  This paper demonstrates a practical application of data science methods through a study of Wisconsin lakes. This paper partially exibits an applied answer to a fundamental question in the field: How do data scientists provide value to organizations that historically are not driven by or reliant on data science or machine learning methods and techniques? Using a dataset of 16,711 lakes from the Wisconsin Department of Natural Resources, the paper presents a reproducible workflow that supports policy makers in their oversight of public accommodations. This analysis closely follows reproducible research practices, making code, data, and methods openly available. This work not only provides practical insights for lake management but also serves as an educational template for understanding the data science process, from initial data exploration to final recommendations. The paper demonstrates how data scientists can bridge the gap between raw data and policy decisions, while maintaining transparency and reproducibility throughout the analytical process.
 keywords:
   - reproducible research
   - data science methods
@@ -103,7 +103,7 @@ with open('_variables.yml', 'a') as f:
 :::
 
 
-::: {#808c42f7-e9cb-444c-878c-09339cdeff25 .cell execution_count=3}
+::: {#808c42f7-e9cb-444c-878c-09339cdeff25 .cell}
 
 ::: {.cell-output .cell-output-display .cell-output-markdown execution_count=3}
 ::: {.callout-note}
@@ -117,9 +117,9 @@ from 16711 lakes. [@wisconsin_dnr_lake_pages].
 
 # Introduction
 
-A common question faced by organizational executive leadership (the c-suite), academic researchers, industry professionals, students, and others regarding data science methods or models is what do these methods and models accomplish. Closely related is what does a data scientist do? Or, how does a data scientist provide value to an organization? These are important questions becuase as @raschka2019python point out large companies "heavily invest in machine learning research applicaionts for *good reason*" (p. xiii) (emphasis added). This paper presents a novel response to those questions.
+A common question faced by organizational executive leadership (the c-suite), academic researchers, industry professionals, students, and others regarding data science methods or models is *what do these methods and models accomplish?* Closely related is what does a data scientist do? Or, how does a data scientist provide value to an organization? These are important questions becuase as @raschka2019python point out large companies "heavily invest in machine learning research applicaionts for *good reason*" (p. xiii) (emphasis added). This paper presents a novel response to those questions.
 
-I write this paper for at least four audiences who all have a common interest. 
+I write this paper for at least four audiences who may share at least some common interests. 
 
 - First for organizational leaders who may not seek to employ these methods on their own but who have an interest in developing or acquiring talent who can employ these methods.
 - Second, for academic researchers who are situated in universities, think takes, or research institues and who are often funded by private or government research grants.
@@ -128,7 +128,7 @@ I write this paper for at least four audiences who all have a common interest.
 
 These audiences share a common interest in understanding the practical utility of data science methods and models. Each of thease audiences have a need to understand how data science can offer highly reproducible approaches, results, insights, utility, and other forms of valuable output. To assist in meeting these common objectives I also distribute with this paper its raw markdown, Python code, Jupyter notebooks, and data sources.
 
-This paper presents an example of work that might have been performed by a data scientist who is working to support policy makers as they oversee the maintenance of public accommodations on lakes located across the State of Wisconsin. This paper's example does not put a model into production because the contexts do not demand a model in production. 
+This paper presents an example of work that might have been performed by a data scientist who is working to support policy makers as they oversee the maintenance of public accommodations on lakes located across the State of Wisconsin. This paper's example does not put a model into production because the research question (and other contextual factors) do not demand a model in production. 
 
 The guiding analytical question and goal for this paper is to use data science as a means to explore which lakes have public services such as a park, beach, or boat landing but perhaps should not. Conversely also to explore which lakes should have public services such as a park, breach, or boat landing but perhaps do not.
 
@@ -142,25 +142,25 @@ This literature review serves to provide an overview of three important contexts
 
 The goal of this project is to inform multiple autorities and decision makers as they work in collaboration to make and implement public policy. This context, where also multiple sources of authority conflict in their interests, may benefit from an analysis that identifies underserviced or overserviced lakes.
 
-The management of Wisconsin’s lakes is a shared responsibility that involves state, local, and federal authorities, each contributing unique roles and expertise to ensure sustainable and effective oversight. @garn2003why also point to lake management associations and lake districts as a source of authority, management, and oversight.
+The management of Wisconsin’s lakes is a shared responsibility that involves tribal, state, local, federal authorities, and international authorities, each contributing unique roles and expertise. @garn2003why also point to lake management associations and lake districts as a source of authority, management, and oversight.
 
-At the state level, the Wisconsin Department of Natural Resources (WDNR) serves as a key authority, providing a framework for lake management. The WDNR’s Lake Modeling Suite offers tools for assessing lake health and predicting management strategy outcomes, while the Surface Water Integrated Monitoring System (SWIMS) serves as a comprehensive database for water quality and ecological data [see @wisconsin_dnr_lake_modeling_suite; and @wisconsin_dnr_swims].  These resources are classic examples of those that data science practitioners would reference in executing a study with this study's analytical goals.
+At the state level, the Wisconsin Department of Natural Resources (WDNR) serves as a key authority, providing a framework for lake management. The WDNR’s Lake Modeling Suite offers tools for assessing lake health and predicting management strategy outcomes, while the Surface Water Integrated Monitoring System (SWIMS) serves as a comprehensive database for water quality and ecological data [see @wisconsin_dnr_lake_modeling_suite; and @wisconsin_dnr_swims].  These resources are examples of those that data science practitioners would reference in executing a study with this study's analytical goals.
 
 ::: {.callout-note} 
-The Wisconsin Department of Natural Resources' Surface Water Integrated Monitoring System (SWIMS) exemplifies the kind of data that data scientists often encounter in applied, policy-relevant contexts. Like many administrative and environmental datasets, SWIMS is rich with information but also characteristically messy. Analysts working with these or similar data must address missing values and inconsistencies in field formats, among other oddities. For example, some columns store numbers as strings due to the presence of unit labels (such as "43 FEET"), while others contain values outside the expected or valide ranges. Data of this kind demands both exploration and transformation before meaningful analysis can begin.
+The Wisconsin Department of Natural Resources' Surface Water Integrated Monitoring System (SWIMS) exemplifies the kind of data that data scientists often encounter in applied, policy-relevant contexts. Like many administrative datasets, SWIMS is rich with information but also characteristically messy. Analysts working with these or similar data must address missing values and inconsistencies in field formats and oddities. For example, some columns store numbers as strings due to the presence of unit labels (such as "43 FEET"), while others contain values outside expected or valid ranges. Data of this kind demands both exploration and transformation before meaningful analysis can begin.
 :::
 
-The state does not operate alone [@Thornton2013Stakeholder]. Local city and county authorities play a part in lake management, particularly in implementing localized policies that address specific community needs including whether to establish a park, beach, or boat access. For example, local governments often plan roads that would service the accommodations and oversee zoning law that would regulate which manner of development may be allowed in a given area. 
+The state does not operate alone [@Thornton2013Stakeholder]. Local city and county authorities play a part in lake management, particularly in implementing localized policies that address specific community needs including whether to establish a park, beach, or boat access. For example, local governments often plan roads that would service the accommodations and oversee zoning law that would regulate which manner of development may be feasbile in a given area. 
 
 Federal authorities also contribute to the management of Wisconsin’s lakes through regulatory and funding mechanisms. The federal Environmental Protection Agency (EPA) establishes water quality standards and provide financial support for restoration projects under the Clean Water Act [@Elbakidz2021hetero] and similar initiatives. Additionally, federally funded programs contribute to the preservation of critical habitats and mitigation of invasive species, which are pressing concerns for many of Wisconsin’s lakes.
 
-In addition to state, local, and federal authorities, tribal governments play a role in the management and preservation of Wisconsin’s lakes [@Waller2018Ecology; and @Spear2020Application]. Many of Wisconsin’s lakes are located on or near tribal lands, and the sovereign rights of indigenous nations give them a unique and essential role in overseeing natural resources. Tribal authorities often have deep, place-based knowledge and cultural ties to these waters, which guide stewardship practices [@Chief2014Engaging].
+In addition to state, local, and federal authorities, tribal governments play a role in the management and preservation of Wisconsin’s lakes [@Waller2018Ecology; and @Spear2020Application]. Many of Wisconsin’s lakes are located, near, or adjacent to tribal lands. The sovereign rights of indigenous nations give them a unique and essential role in overseeing area natural resources. Tribal authorities often have deep, place-based knowledge and cultural ties to these waters, which guide stewardship practices [@Chief2014Engaging].
 
-The overlapping jurisdictions and collaborative efforts among these levels of government underscore the complexity of lake management. For data scientists working in this domain, understanding the policy context is crucial for framing analytical questions, interpreting data, and ensuring that findings are actionable for stakeholders across all levels of governance. Because this analysis may inform policy decisions across various levels of government (state, local, tribal), the output of this analysis may be useful by many.
+The overlapping jurisdictions and collaborative efforts among these levels of government underscore the complexity of lake management. For data scientists working in this domain, understanding the policy context (including consultation with subject matter experts) is crucial for framing analytical questions, interpreting data, and ensuring that findings are actionable for stakeholders across all levels of governance. Because this analysis may inform policy decisions across various levels of government (state, local, tribal, federal, and international), the output of this analysis may be useful by many.
 
 ## Environmental Limnological Geologic
 
-As a study of Wisconsin lakes, this work intersects at least three major academic and scientific domains: environmental science, limnology, and geology. In practice a data scientist would heavily rely on literature and also consultations with experts who study, know, and understand these domains. Knowledge from literature and from consultation is commonly called "domain knowledge" among data science practitioners [@nelson2023confident]. The ability to contextualize data is further emphasized by [@carvalho2024new], who notes that collaboration with domain experts is vital throughout the data science process to ensure that the results are relevant and actionable. 
+As a study of Wisconsin lakes, this work intersects at least three major academic and scientific domains including environmental science, limnology, and geology. In practice a data scientist would heavily rely on literature and also consultations with experts who study, know, and understand these domains. Knowledge from literature and from consultation is commonly called "domain knowledge" among data science practitioners [@nelson2023confident]. The ability to contextualize data is further emphasized by [@carvalho2024new], who notes that collaboration with domain experts is vital throughout the data science process to ensure that the results are relevant and actionable. 
 
 According to @bendor2013modeling the following factors figure into park development: 
 
@@ -173,13 +173,13 @@ According to @bendor2013modeling the following factors figure into park developm
 - Public input and approval: Public hearings and comment periods can extend the timeline, especially if there are significant concerns or opposition.
 - Construction timeline: The actual construction phase can vary depending on the complexity of the project, weather conditions, and other factors.
 
-Each of these domains contributes essential perspectives to understanding the complex systems governing lake ecosystems and their management.
+Each of these domains contributes nuance to understanding the complex systems governing lake ecosystems and their management.
 
 ::: {.callout-note}
-Domain knowledge refers to the specialized understanding and expertise within a particular field or subject area. In the context of this study, domain knowledge spans environmental science, limnology, and geology—fields that provide the essential insights needed to analyze and interpret data about Wisconsin lakes. It allows data scientists to frame relevant questions, choose appropriate methodologies, and ensure that their findings are both accurate and actionable for decision-makers. [@nelson2023confident].
+Domain knowledge refers to the specialized understanding and expertise within a particular field or subject area. In the context of this study, domain knowledge spans environmental science, limnology, and geology. These fields provide insights needed to analyze and interpret data about Wisconsin lakes. It allows data scientists to frame relevant questions, choose appropriate methodologies, and ensure findings are both accurate and actionable for decision-makers. [@nelson2023confident].
 :::
 
-The environmental domain encompasses the broader ecological interactions affecting Wisconsin lakes. This ecology includes factors such as land use, agricultural, water quality, and climate changes. Limnology, the study of inland waters, focuses specifically on the biological, chemical, and physical characteristics of lakes and their surrounding environments. The geologic domain provides insights into the underlying structure and formation of Wisconsin’s lake basins.
+The environmental domain encompasses the broader ecological interactions affecting Wisconsin lakes. This ecology includes factors such as land use, agriculture, water quality, and climate changes. Limnology, the study of inland waters, focuses specifically on the biological, chemical, and physical characteristics of lakes and their surrounding environments. The geologic domain provides insights into the underlying structure and formation of Wisconsin’s lake basins.
 
 The interplay of environmental, limnological, geologic (and other) factors defines the unique character of each lake. Effective policy and management decisions require an integrated understanding of these domains, supported by data-driven insights. By combining these perspectives, this study aims to model how a data science practitioner's work necessarily involves reference to knowledge not specific to data science in collaboration with others.
 
@@ -187,15 +187,14 @@ The interplay of environmental, limnological, geologic (and other) factors defin
 
 > The goal of generating new knowledge is at the heart of all scientific disciplines, including data science. It is about finding patterns and relationships in the data that can help us make better decisions or solve complex problems. [@nelson2023confident, p 67]
 
-For a range of reasons data sciecne is also more "experimental" in its approaches [@Martins2021earlyprediction] than more traditional inferential statistical work. For example, according to @Martins2021earlyprediction in regards to model or algorithm selection the best machine learning technique is dependent "on the dataset and on the formulation of the problem" (p. 172). According to @Breiman2001culture who described more traditional approaches as "data modeling" and the more experimental approahces as "algorithmic" modeling a key distinction between these two approaches is that for data modeling the main metric as to what may constitute a "good" model is a look at goodness of fit while the key metric for algorithmic modeling is predictive accuracy.
+For a range of reasons data sciecne is also more "experimental" in its approaches [@Martins2021earlyprediction] than more traditional inferential statistical work. For example, according to @Martins2021earlyprediction in regards to model or algorithm selection the best machine learning technique is dependent "on the dataset and on the formulation of the problem" (p. 172). According to @Breiman2001culture who described more traditional approaches as "data modeling" and more experimental approahces as "algorithmic," modeling a key distinction between these two approaches is that for data modeling the main metric as to what may constitute a "good" model is a look at goodness of fit while the key metric for algorithmic modeling is predictive accuracy.
 
 @Breiman2001culture defends so-called algorithmic modeling culture by suggesting that the focus among those in the data modeling culture have brewed an environment which has "lead to irrelevant theory," "questionable scientific conclusions," limited or stymied the use of "more sutiable agorithmic models," and prevented work "on exciting new problems" (p. 299-200).
 
-A focus on accuracy is not a trivial distinction. The distiction underscores 
-the practical utility of what @Breiman2001culture refers to as algorithmic modeling in addressing complex problems. This paper’s research question, treated as a thought experiment, highlights the utility of prioritizing accuracy over measures like goodness of fit. Specifically, our goal is to produce two actionable lists of lakes:
+A focus on accuracy is not a trivial distinction. The distiction underscores the practical utility of what @Breiman2001culture refers to as algorithmic modeling in addressing complex problems. This paper’s research question, treated as a thought experiment, highlights the utility of prioritizing accuracy over measures like goodness of fit. Specifically, our goal is to produce two actionable lists of lakes:
 
-1. **Overserviced Lakes** Lakes that currently have public accommodations but perhaps should not. These will be lakes that our model incorrectly predicts as lacking public accommodations.
-2. **Underserviced Lakes** Lakes that lack public accommodations but perhaps should have them. These will be lakes that our model incorrectly predicts as having public accommodations.
+1. **Overserviced Lakes** Lakes that currently have public accommodations but perhaps should not. These will be lakes that our model incorrectly predicts as not having public accommodations.
+2. **Underserviced Lakes** Lakes that do not have public accommodations but perhaps should have them. These will be lakes that our model incorrectly predicts as having public accommodations.
 
 Thus, given this paper's analytical question the results of interest will be incorrect predictions. The flexibility of data science and it's algorithmic modeling culture permits a tailored approach finely tuned based on the needs of policymakers. 
 
@@ -224,7 +223,7 @@ plt.axis('off');
 :::
 
 
-This process, as illustrated in @fig-data-sicence-process starts at the upper left under the heading "Question or Problem" and moves clockwise as an interative cycle as it also further consists of the following:
+This process, as illustrated in @fig-data-sicence-process, starts at the upper left under the heading "Question or Problem" and moves clockwise as an interative cycle as it also further consists of the following:
 
 1. **State an analytical question or a business problem to solve.**
 2. **Look + check around.** Explore if the question has been answered or if the problem has been solved. Also look to see what other similar questions or problems have been studied. Identify which methods have, or have not, been successful in the past. Also identify potential data sources.
@@ -237,21 +236,21 @@ This process, as illustrated in @fig-data-sicence-process starts at the upper le
 
 ## Dissemination, Not Production
 
-This paper's example does not exemplify putting a model into production. Below is further explanation as to why putting a model into production is not appropriate for this paper, and indeed the same is also true many papers using data science's algorithmic mode of science.
+This paper's example does not exemplify putting a model into production. Below is further explanation as to why putting a model into production is not appropriate for this paper, and indeed the same often also true for many papers using data science's algorithmic mode of science.
 
-This paper's environmental/limnological/geologic contexts are a primary reason why the work here does not involve putting a model into production. A model in production is useful when a business systems, often driven by software systems, require a prediction that can serve as a tool in making a decision. Or in contexts when information is frequently or rapidly changing and the use case calls for using a prediction as a recommendation or an automated decision.
+This paper's environmental/limnological/geologic contexts are a primary reason why the work here does not involve putting a model into production. A model in production is useful when a business system require a prediction that can serve as a tool in making a decision (on an on-going basis as new data becomes available or when conditions frequently change and evolve). Or in contexts when information is frequently or rapidly changing and the use case calls for using a prediction as a recommendation or an automated decision.
 
 ::: {.callout-note}
-A model in production is most useful in environments where predictions must be made repeatedly in response to rapidly changing data. These contexts often involve automated systems or decision-making pipelines—such as in weather forecasting, energy grid optimization, or real-time environmental monitoring—where data streams update frequently, and predictions must adapt continuously. For example, a model deployed in production for natural resources management might monitor streamflow or rainfall to inform automated alerts for flood risks or fire danger. In such cases, real-time data ingestion and dynamic model retraining are essential to the utility of the prediction.
+A model in production is most useful in environments where predictions must be made repeatedly in response to rapidly changing data. Contexts calling for models in production often involve automated systems or decision-making pipelines such as in weather forecasting, energy grid optimization, or real-time environmental monitoring where data streams update frequently, and predictions must adapt continuously. For example, a model deployed in production for natural resources management might monitor streamflow or rainfall to inform automated alerts for flood risks or fire danger.
 :::
 
-A description of Wisconsin's lakes from over fourty years ago remains as true today as it was when first published. @lillie1983limnological describe the typical Wisconsin lake as "natural in origin, equally likely to be of seepage or drainage and stratified or mixed in basic lake type and probably located in the northern half ot the state" (p. N).
+A description of Wisconsin's lakes from over fourty years ago remains nearly, in many respects, as true today as it was when first published. @lillie1983limnological describe the typical Wisconsin lake as "natural in origin, equally likely to be of seepage or drainage and stratified or mixed in basic lake type and probably located in the northern half ot the state" (p. N).
 
 In the case of Wisconsin's lakes it is not often that a new lake will appear on the map. According to data utilized in this paper's analysis from the WDNR there are {{< var number_of_lakes >}} lakes located throughout the state of Wisconsin. The number of lakes has for decades frequently been reported at a rounded 15,000 (@lillie1983limnological). The number of lakes in Wisconsin, or any geographic region, does not change often. Thus, in this case it is sufficient to train and test a model once on the existing data (which we do not expect to change often).
 
 # Data + Method
 
-As discussed above the method for this project involves a one-time analysis. Specifically the output will be a list of lakes that do have public accommodations but are more similar to lakes that do not have public accommodations (underserviced). A companion output will be a list of lakes that do not have public accommodations but that are more similar to lakes that do (overserviced).
+As discussed above the method for this project involves a one-time analysis. Specifically the output will be a list of lakes that do have public accommodations but are more similar to lakes that do not have public accommodations (overserviced). A companion output will be a list of lakes that do not have public accommodations but that are more similar to lakes that do (underserviced).
 
 Here I first discuss the data and then also the method that will produce a list of lakes that should be further considered for the addition of one or more public accommodation and a list of lakes that might benefit from public accommodation closure or retirement.
 
@@ -259,8 +258,9 @@ Here I first discuss the data and then also the method that will produce a list 
 
 The WDNR publishes the data for this analysis [@wisconsin_dnr_lake_pages]. The WDNR supports this data, uses it for a full range of purposes [@wisconsin_dnr_swims], and it receives contributions from "citizen science" initiatives [@kretschmann2011citizen].
 
-::: {#9d784769-f7d6-4155-a59c-c78434de0885 .cell execution_count=5}
+::: {#9d784769-f7d6-4155-a59c-c78434de0885 .cell}
 ``` {.python .cell-code}
+# Example observation
 df0.iloc[5194]
 ```
 
@@ -507,7 +507,7 @@ plt.legend()
 
 
 ::: {.callout-note}
-To create a geographic visualization of Wisconsin’s lakes, this analysis overlays lake location data onto a geospatial outline of the state. The process relies on several essential tools and geospatial data formats, including GeoJSON, GeoPandas, and the use of a coordinate reference system (CRS) to ensure spatial consistency.
+To create a geographic visualization of Wisconsin’s lakes, this analysis overlays lake location data onto a geospatial outline of the state. The process relies on several tools and geospatial data formats, including GeoJSON, GeoPandas, and the use of a coordinate reference system (CRS) to ensure spatial consistency.
 
 The geographic outline of Wisconsin is sourced from a publicly available GeoJSON file hosted on GitHub. GeoJSON is a widely used format for encoding geographic data structures using JSON (JavaScript Object Notation). It stores spatial features such as points, lines, and polygons along with associated attribute data. In this case, the polygon defining the boundary of the state of Wisconsin is used as a background layer in the final map.
 
@@ -524,7 +524,7 @@ The code also inspects the `lat` and `long` data to discover that some values ar
 
 A total of {{< var zero_coords_count >}} records reported 0°, 0° coordinates. The code also replaces these out of range 0°, 0° data with longitude and latitude values associated with each lake's county coordinates from gigasheet.com. A small number of records contained no county data (or data from multiple counties) and thus the code drops these remaining records from the analysis.
 
-The newly renamed `fish` column contains a comma separated list of fish species found in each lake. This column also contains a gramatically correct "and." To convert these fish data to an array of dummy columns the code first replace the "and" with a comma via `pd.str.replace(' and',',', ')` and then uses `pd.str.get_dummies(sep=', ')`.
+The newly renamed `fish` column contains a comma separated list of fish species found in each lake. This column also contains a gramatically correct "and" (which must be removed prior to analysis). To convert these fish data to an array of dummy columns the code first replace the "and" with a comma via `pd.str.replace(' and',',', ')` and then uses `pd.str.get_dummies(sep=', ')`.
 
 This code also manages missing data as described above in @sec-wdnr-data which describes the data as it was in its oroginal form from WDNR. Three extrememly large lakes in the .018th percential including Lake Winebago are removed. A final inspection of summary statistics is provided in @tbl-prepared-summary.
 
@@ -631,7 +631,7 @@ df = df[df['size'] < 20000]
 
 ## Exploratory Data Analysis
 
-Exploratory Data Analysis (EDA) serves as a critical bridge between raw data and later more formal analysis and data modeling. This EDA is the stage at which a scientist engages directly with data to uncover initial patterns, surface anomalies, identify missing values, and begin assessing the structure and relationships among variables. @gutman2021becoming describe exploratory data analysis as "an ongoing process" (p. 52). Thus EDA is not merely a preliminary step, but rather a dynamic and iterative component of the broader data science workflow. This ongoing process allows the analyst to refine questions, revisit assumptions, and incrementally develop insight into the nature and quality of the data.
+Exploratory Data Analysis (EDA) serves as a bridge between raw data, more formal analysis, and then also data modeling. This EDA is the stage at which a scientist engages directly with data to uncover initial patterns, surface anomalies, identify missing values, and begin assessing the structure and relationships among variables. @gutman2021becoming describe exploratory data analysis as "an ongoing process" (p. 52). Thus EDA is not merely a preliminary step, but rather a dynamic and iterative component of the broader data science workflow. This ongoing process allows the analyst to refine questions, revisit assumptions, and incrementally develop insight into the nature and quality of the data.
 
 As @nelson2023confident notes, "without at least some preparation, an exploratory analysis might reveal less than fully useful insights. Simultaneously, without at least some exploration it is not fully possible to know what preparation will be necessary before a full analysis" (p. 85). This is a *which comes first* problem; a proverbial *chicken or egg* question. For example, in this paper a handful of data manipulations have already been described and executed above, all of which required at least some exploration. Proper execution of EDA early and often through the course of a project guides both data preparation and the analysis along the way. Below is a more formal and analytical exploration of the data aimed at understanding which features may be useful in a predictive algorithm.
 
@@ -881,7 +881,7 @@ of these lakes have at least one public service.
 
 ## Visual Exploratory Data Analysis
 
-To explore how each variable may predict the presence of a public service on any of Wisconsin's lakes I produce series of categorical violine plots in @fig-violin-plot. This figure further illustrats how the presence of public services such as boat landings, beaches, or parks may relate to five continuous features of each lake: size, maximum depth, mean depth, latitude, and longitude. Each plot shows the distribution of these features' natural log values for lakes with and without public services.
+The categorical violin plots in @fig-violin-plot explore how each variable may predict the presence of a public service on any of Wisconsin's lakes. This specifically illustrates how the presence of public services such as boat landings, beaches, or parks may relate to five continuous features of each lake (size, maximum depth, mean depth, latitude, and longitude). Each plot shows the distribution of the variable's natural log transformation.
 
 ::: {#cell-fig-violin-plot .cell fig-num='true' execution_count=14}
 ``` {.python .cell-code}
@@ -927,12 +927,12 @@ Specifically lake size, maximum depth, and mean depth, the top three plots in @f
 On latitude and longitude, the bottom two plots of @fig-violin-plot, show less pronounced differences. There is modest separation in the distributions for lakes with and without services, particularly in latitude, where lakes with public services appear to be slightly more concentrated in certain geographic bands. This may reflect regional planning priorities or population density factors but likely provides less predictive value than physical lake characteristics.
 
 ::: {.callout-note}
-The continuous variables displayed in Figure 4 have long-tailed, highly-skewed distributions. To make the visualizations more interpretable and to reduce the influence of extreme values, I applied the natural logarithm transformation. This common transformation compresses the scale of larger values. The result is a more readable distribution.
+The continuous variables displayed in Figure 4 have long-tailed, highly-skewed distributions. The natural log transformation makes the visualizations more interpretable. This common transformation compresses the scale of larger values. The result is a more readable distribution.
 :::
 
-These visual explorations serve as an important visual check on the potential predictive power of each feature when modeling the presence of public service. The greater the separation between the two distributions, the more likely that variable will be useful in a classification task. Based on the WDNR data, features like size, max depth, and mean depth appear to have strong potential as predictors, while latitude and longitude may contribute some additional nuance when combined with other variables.
+These visual explorations serve as an visual check on the potential predictive power of each feature when modeling the presence of public service. The greater the separation between the two distributions, the more likely that variable will be useful in a classification task. Based on the WDNR data, features like size, max depth, and mean depth appear to have strong potential as predictors, while latitude and longitude may contribute some additional nuance when combined with other variables.
 
-One additional customary plot used in exploratory data anlysis is the pair plot. Below @fig-logpairplot_1 again reveals the same patterns noted above in @tbl-prepared-summary and @fig-violin-plot.
+An additional customary plot used in exploratory data anlysis is the pair plot. Below @fig-logpairplot_1 again reveals the same patterns noted above in @tbl-prepared-summary and @fig-violin-plot.
 
 ::: {#cell-fig-logpairplot_1 .cell fig-num='true' execution_count=15}
 ``` {.python .cell-code}
@@ -1016,7 +1016,7 @@ All fish species columns appear to offer some predictive value. For catfish we f
 
 In this paper's analysis the outcome is whether a lake has as public service while the predictors are each lake's size in acers, maximum depth, mean depth, latitude, longitude, type ({{< var lake_type_vals >}}), clarity ({{< var lake_clarity_vals >}}), and the presence of specific fish species ({{< var fish_species_list >}}).
 
-Through the use of a predictive algorithm that measures similarity this paper's analysis will first create a model that looks to predict which of Wisconsin's lakes have a public service and which of Wisconsin's lakes do not have a public service. Inevitably there will be some errors.
+Through the use of a predictive algorithm that measures similarit, this paper's analysis will first create a model that looks to predict which of Wisconsin's lakes have a public service and which of Wisconsin's lakes do not have a public service. Inevitably there will be some errors.
 
 One set of errors will be lakes that do not have a service but that the model predicted would (becauase they are similar to others that do) which we will call overserviced. Likewise another set of errors will be lakes that do have a service but that model predicted would not (becuase these other lakes are more similar to those that do not have service) which we will call underserviced.
 
@@ -1030,7 +1030,7 @@ A simplified version of the KNN process, as it operates for this paper, is to fi
 
 In data science we use the term *non-parametric* to describe predictive algorithms, such as KNN, which have no fixed formula. Being absent a fixed formula distinguishes the non-parametic approach from parametric approaches, such as logistic regression, for example. @james2023introduction describe KNN as one of "the simplest and best-known non-parametric methods" (p. 111).
 
-Models that are *instance-based* make decisions by comparing one instance (or given this paper's data any instance of a given lake) to others instances (other lakes). During the model fit procedure the algorithm memorizes the training data by storing as a reference all training instances. A *feature space* is a term for the way we describe the multi-dimensional, or multi-variate, nature of the predictive features and their values.
+Models that are instance-based make decisions by comparing one instance (or given this paper's data any instance of a given lake) to others instances (other lakes). During the model fit procedure the algorithm memorizes the training data by storing as a reference all training instances. A feature space is a term for the way we describe the multi-dimensional, or multi-variate, nature of the predictive features and their values.
 
 ::: {.callout-note}
 This distance metric must not be conflated for geographic distance. For example, two lakes located on opposite sides of the state may still be considered "close" in feature space if they share similar size, depth, water clarity, and fish populations. This abstract notion of distance allows KNN to make predictions based on overall similarity in characteristics, rather than geographic location alone.
@@ -1046,15 +1046,15 @@ This analysis uses the open-source Python package Scikit-learn (https://scikit-l
 
 The analytical procedures in this paper align with those outlined in Chapter 11 of @nelson2023confident and Chapter 3 of @raschka2019python. Most machine learning workflows begin by splitting the available data into training and testing sets. The training set allows the model to learn patterns and relationships in the data, while the testing set remains untouched until final evaluation. This split helps ensure that performance estimates reflect how the model will generalize to new data not seen during training.
 
-The training and testing sets also support model parameter selection. In this case the parameter to optimize is the optimal number of *k* neighbors in the KNN algorithm. As is also customary, to avoid information leakage, this analysis performs data preprocessing after the data has been split. Binary features (such as fish species presence) require no further transformation. However, nominal features such as clarity and type are converted into dummy variables using one-hot encoding, and all continuous predictors are rescaled using a standardization procedure to ensure they contribute equally to distance calculations.
+The training and testing sets also support model parameter selection. In this case the parameter to optimize is the optimal number of $k$ neighbors in the KNN algorithm. As is also customary, to avoid information leakage, this analysis performs data preprocessing after the data has been split. Binary features (such as fish species presence) require no further transformation. However, nominal features such as clarity and type are converted into dummy variables using one-hot encoding, and all continuous predictors are rescaled using a standardization procedure to ensure they contribute equally to distance calculations.
 
-Following transformation, the next step involves conducting a parameter search to identify the most effective value for *k*, the number of nearest neighbors used in the KNN algorithm. In most cases, the customary approach is to select the smallest value of *k* that also minimizes prediction error. A smaller *k* yields a simpler, more interpretable model. However, this paper intentionally selects a less-well performing k value to relize a more complex model. The reasoning behind this choice is practical: a more complex model yields a finer-grained and more complete distribution of predicted probabilities. These probabilities in turn, support a more nuanced analysis of false predictions. As the anslysis seeks to identify lakes that do not have public services but appear similar to those that do, and vice versa. This added granularity enhances the utility of the model in producing actionable policy recommendations.
+Following transformation, the next step involves conducting a parameter search to identify the most effective value for $k$, the number of nearest neighbors used in the KNN algorithm. In most cases, the customary approach is to select the smallest value of $k$ that also minimizes prediction error. A smaller $k$ yields a simpler, more interpretable model. However, this paper intentionally selects a less-well performing $k$ value to relize a more complex model. The reasoning behind this choice is practical. The higher $k$ value, that also produces more error, results in a more complex model yields a finer-grained and more complete distribution of predicted probabilities. These probabilities in turn, support a more nuanced analysis of false predictions. As the anslysis seeks to identify lakes that do not have public services but appear similar to those that do, and vice versa. This added granularity enhances the utility of the model in producing actionable policy recommendations.
 
 As a final step, this analysis uses a two-fold cross-validation with symmetric evaluation, which ensures that every lake is evaluated as an out-of-sample observation exactly once. In the first fold, the model is trained on half of the data and used to predict outcomes for the other half; in the second fold, the roles are reversed. This method yields a complete set of out-of-sample predictions, which allows us to identify false positives (lakes without public services that resemble lakes that do) and false negatives (lakes with public services that resemble those that don’t). These classification errors serve as the empirical foundation for the policy recommendations presented later in this paper.
 
 ## Train Test Split Procedure
 
-The SciKit Learn user guide states plainly that "Learning the parameters of a prediction function and testing it on the same data is a methodological mistake" @scikit-learn-cross-validation2023. This mistake would usually lead to a model that has *overfit*. Instead of finding the general functional relationships between predictor features and an outcome, a model that has overfit to the data, has come close to memorizing the training data.
+The SciKit Learn user guide states plainly that "Learning the parameters of a prediction function and testing it on the same data is a methodological mistake" @scikit-learn-cross-validation2023. This mistake would usually lead to a model that has overfit. Instead of finding the general functional relationships between predictor features and an outcome, a model that has overfit to the data, has come close to memorizing the training data.
 
 By first fitting a model on a subset of training data and then using a separate hold out subset as a test, the procedure results in a more objective opportunity to fairly evaluate the predictive abilities of a model. The procedure ensures that a model which performs well on training data also later performs well on new data yet to be generated in future production settings.
 
@@ -1114,7 +1114,7 @@ X_test = pd.concat([X_test.drop(cat_features, axis=1), X_test_ohe], axis=1)
 
 ## Fit Base Model
 
-Before proceeding with parameter tuning or model refinement, it is often useful to fit a base model using an arbitrary but reasonable choice of parameters. In the case of k-nearest neighbors (KNN), selecting a base *k* such as *k* = 19. This base model provides an initial benchmark for model performance. This step, though technically optional, serves several important purposes within the broader analytical process.
+Before proceeding with parameter tuning or model refinement, it is often useful to fit a base model using an arbitrary but reasonable choice of parameters. In this case of k-nearest neighbors (KNN), a base $k$ of $k$ = 19. This base model provides an initial benchmark for model performance. This step, though technically optional, serves several important purposes within the broader analytical process.
 
 First, fitting a base model allows the analyst to ensure that the pipeline—from data preprocessing to model training and evaluation functioned as intended. Errors related to data structure, scaling, encoding, or other preprocessing steps often surface during this preliminary fit. The base model thus acts as a diagnostic opportunity to detect problems before introducing additional complexity through cross-validation, parameter searches, or other hyperparameter tuning efforts.
 
@@ -1122,7 +1122,7 @@ Second, the base model offers a reference point for evaluating the value added b
 
 Finally, the base model supports replication and transparency by providing a fixed and reproducible result that others can use to validate or extend the work. By producing and recording model performance with arbitrary but documented parameters, the analysis builds a foundation upon which subsequent results can be compared, especially in applied contexts where interpretability and policy implications matter as much as technical performance.
 
-In short, while fitting a base model with arbitrary *k* is not strictly necessary for most analyses, it offers extensive practical value in building a rigorous, transparent, and well-structured analysis.
+In short, while fitting a base model with arbitrary $k$ is not strictly necessary for most analyses, it offers extensive practical value in building a rigorous, transparent, and well-structured analysis.
 
 ::: {#24e72393-3e31-4bcd-8277-47167aa389d9 .cell execution_count=22}
 ``` {.python .cell-code}
@@ -1139,15 +1139,15 @@ y_pred = knn_base.predict(X_test)
 
 
 
-This base model yeild {{< var base_accuracy >}} accuracy (correct classifications). There were {{< var base_false_pos >}} false positive predictions and {{< var base_false_neg >}} false negative predictions. These base metrics can serve as a helpful reference when evaluating futher results below.
+This base model yeilds {{< var base_accuracy >}} accuracy (correct classifications). There were {{< var base_false_pos >}} false positive predictions and {{< var base_false_neg >}} false negative predictions. These base metrics can serve as a helpful reference when evaluating futher results below.
 
 ## Evaluate + Search for Optimal K
 
-This portion of the analysis implements a parameter search to determine how the choice of *k* (the number of neighbors considered in the KNN classification algorithm) affects model performance. The goal is to identify a value of *k* that yields relatively low classification error, thereby improving the model’s predictive accuracy. As discussed above, for this paper I will not choose the lowest error rate in order to support a fully nuanced analysis.
+This portion of the analysis implements a parameter search to determine how the choice of $k$ (the number of neighbors considered in the KNN classification algorithm) affects model performance. The goal is to identify a value of $k$ that yields relatively low classification error, thereby improving the model’s predictive accuracy. As discussed above, for this paper I will not choose the lowest error rate in order to support a fully nuanced analysis.
 
-This portion of the analysis begins by initializing an empty list named `error_rates` to store the error rate associated with each value of *k*. The `for` loop then iterates through odd-numbered values of *k* from 1 to 99. Odd values avoid tie votes in binary classification. For each iteration, the code instantiates a new `KNeighborsClassifier` model using the current value of *k* and fits it to the training data.
+This portion of the analysis begins by initializing an empty list named `error_rates` to store the error rate associated with each value of $k$. The `for` loop then iterates through odd-numbered values of $k$ from 1 to 99. Odd values avoid tie votes in binary classification. For each iteration, the code instantiates a new `KNeighborsClassifier` model using the current value of $k$ and fits it to the training data.
 
-Once trained the code predicts classifications for the testing set (`X_test`), then calculates the error rate as the proportion of incorrect predictions, and appends that result to the `error_rates` list. By the end of the loop, the list holds the model's error rates across a range of *k* values.
+Once trained the code predicts classifications for the testing set (`X_test`), then calculates the error rate as the proportion of incorrect predictions, and appends that result to the `error_rates` list. By the end of the loop, the list holds the model's error rates across a range of $k$ values.
 
 ::: {#93d82fcd-f230-4d50-ad96-d7a61c9a34b0 .cell execution_count=24}
 ``` {.python .cell-code}
@@ -1169,9 +1169,9 @@ for k in range(1, 100, 2):
 :::
 
 
-A subsequent block of code generates @fig-error_rates, a visual representation of the results using Matplotlib. @fig-error_rates uses a dotted blue line with ‘x’ markers to show how error rates change as *k* increases.
+A subsequent block of code generates @fig-error_rates, a visual representation of the results using Matplotlib. @fig-error_rates uses a dotted blue line with ‘x’ markers to show how error rates change as $k$ increases.
 
-By examining @fig-error_rates's curve, an analyst can make an informed decision about which *k* values to consider for the final model—balancing error rate, model simplicity, and practical interpretability. Given these results I choose a *k* value of 29 consistent with the procedure outlined above.
+By examining @fig-error_rates's curve, an analyst can make an informed decision about which $k$ values to consider for the final model—balancing error rate, model simplicity, and practical interpretability. Given these results I choose a $k$ value of 29 consistent with the procedure outlined above.
 
 ::: {#fig-error_rates .cell fig-num='true' execution_count=25}
 ``` {.python .cell-code}
@@ -1668,9 +1668,9 @@ false_positives[false_positives['probability'] > .8][
 
 @tbl-underserviced-lakes presents a list of lakes identified by KNN model as false positives, or as lakes that were predicted to have public services but do not currently offer them. Each row includes the lake's name, its surface area in acres (`size`), geographic coordinates (`lat` and `lon`), the county or counties in which the lake is located, and the model's estimated `probability`. 
 
-This `probability` value is a key element in the table: it represents the proportion of the 29 nearest neighbors (as set by the optimal *k* in the model) that do have a public service. For example, a probability of `0.827586` implies that 25 out of 29 neighboring lakes in the feature space had a public service, making the model highly confident that the lake in question should as well.
+This `probability` value is a key element in the table: it represents the proportion of the 29 nearest neighbors (as set by the optimal $k$ in the model) that do have a public service. For example, a probability of `0.827586` implies that 25 out of 29 neighboring lakes in the feature space had a public service, making the model highly confident that the lake in question should as well.
 
-Lakes such as Kilbourn Flowage, Kettle Moraine Lake, and Fence Lake have especially high probabilities—approaching or reaching 1.0—indicating that all of their most similar lakes in the multi-dimensional feature space do have services. These high-probability false positives are particularly important because they suggest a strong pattern of similarity when compared to serviced lakes and thus may warrant prioritization for future investments in public amenities.
+Lakes such as Kilbourn Flowage, Kettle Moraine Lake, and Fence Lake have especially high probabilities (approaching or reaching 1.0) indicating that all of their most similar lakes in the multi-dimensional feature space do have services. These high-probability false positives are particularly important because they suggest a strong pattern of similarity when compared to serviced lakes and thus may warrant prioritization for future investments in public amenities.
 
 ## Overserviced Lakes
 
@@ -1914,7 +1914,7 @@ false_negatives[false_negatives['probability'] < .03][
 
 </div>
 
-@tbl-overserviced-lakes identifies lakes classified as false negatives by the KNN model. These lakes do have public services, but the model predicted they would not. In this analysis, such lakes are referred to as overserviced, meaning they are dissimilar—based on the features available—to most other lakes that also have services.
+@tbl-overserviced-lakes identifies lakes classified as false negatives by the KNN model. These lakes do have public services, but the model predicted they would not. In this analysis, such lakes are referred to as overserviced, meaning they are dissimilar (based on the features available) to most other lakes that also have services.
 
 As was also with @tbl-underserviced-lakes this `probability` column reflects the proportion of the 29 most similar lakes (i.e., nearest neighbors in the multi-dimensional feature space) that had public services. A `probability` of 0.0 implies that none of the 29 neighbors had a service.
 
@@ -1985,12 +1985,19 @@ Both underserved and overserved lakes are widely distributed throughout the stat
 
 ## Limitations + Weaknesses
 
+- The data from this analysis suffer from many missing values.
+
 
 {{< lipsum 3 >}}
 
 
 
 ## Suggestions For Further Work
+
+- Investigate if there are supplemental data sources that may more accurately replace missing values.
+- Check each false positive to understand if there is an existing regulatory reason that lake has no service.
+- Check each false negative to understand what characteristics of that lake and its community result in the lake's present services.
+- Verify the data by checking if the service indicators from WDNR data are accurate, current, etc.
 
 
 {{< lipsum 2 >}}
