@@ -4,33 +4,7 @@ Reproducible data science demonstrating how to create publication-ready document
 
 ## Project Overview
 
-This repository contains a comprehensive data analysis of Wisconsin lakes, serving as a demonstration of reproducible data science practices. The project showcases how to transform Jupyter notebooks into multiple publication formats (HTML, PDF, and DOCX) while maintaining reproducibility and professional formatting.
-
-## Environmental + Tech Stack
-
-- **Python 3.13** - Core programming language
-- **Jupyter** - IDE/Interactive computing environment
-- **Quarto** - Publishing system for scientific and technical writing
-- **Key Python Libraries**:
-  - pandas - Data manipulation and analysis
-  - seaborn/matplotlib - Data visualization
-  - geopandas - Geospatial data handling
-  - scikit-learn - Machine learning components
-  - numpy - Numerical computing
-
-## Repository Structure
-
-```
-.
-├── ParkSiteSelection.ipynb    # Main analysis notebook
-├── _quarto.yml                # Quarto configuration
-├── references.bib             # Bibliography file
-├── styles.css                 # Custom CSS styles
-├── figures/                   # Generated figures
-└── original_data/             # Source data files
-    ├── Lakes_Original.csv
-    └── gigsheet-counties.csv
-```
+This repository contains a (policy-question-driven) analysis of data pertaining to Wisconsin lakes, serving as a demonstration of reproducible data science practices. The project showcases how to transform Jupyter notebooks into multiple publication formats (HTML, PDF, and DOCX) while maintaining reproducibility and professional formatting. Also showcased are novel (off-label) uses of machine learning techniques for policy analysis.
 
 ## Reproducibility Features
 
@@ -39,17 +13,12 @@ This repository contains a comprehensive data analysis of Wisconsin lakes, servi
 The project uses Quarto for document generation, supporting:
 - Multiple output formats (HTML, PDF, DOCX)
 - Automatic table of contents
-- Code folding and tools
-- Bibliography management
-- Custom styling
-- Watermarking for draft versions
+- Bibliography (reference list) management
 
-### Code Organization
+### Code Organization + Reproducibility Philosophy
 
-- Analysis contained in a single Jupyter notebook for clarity
-- Code cells include YAML-style metadata for Quarto processing
-- Figures include labeling and cross-referencing
-- Data processing steps documented
+- Analysis + manuscript both contained in a single Jupyter notebook)
+- Figures include Quarto-supported labeling and cross-referencing
 
 ## Getting Started
 
